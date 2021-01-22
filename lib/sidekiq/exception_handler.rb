@@ -15,7 +15,9 @@ module Sidekiq
     end
 
     def handle_exception(ex, ctx = {})
+      Sidekiq.logger.warn("Calling Handle Exception")
       Sidekiq.error_handlers.each do |handler|
+        Sidekiq.logger.warn("Calling #{handler}!!")
         handler.call(ex, ctx)
       rescue => ex
         Sidekiq.logger.error "!!! ERROR HANDLER THREW AN ERROR !!!"
