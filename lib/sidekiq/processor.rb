@@ -170,6 +170,7 @@ module Sidekiq
         # within the timeout.  Don't acknowledge the work since
         # we didn't properly finish it.
       rescue Sidekiq::JobRetry::Handled => h
+        logger.earning("I am here #{h}")
         # this is the common case: job raised error and Sidekiq::JobRetry::Handled
         # signals that we created a retry successfully.  We can acknowlege the job.
         ack = true

@@ -87,6 +87,7 @@ module Sidekiq
       raise Sidekiq::Shutdown if exception_caused_by_shutdown?(e)
 
       msg = Sidekiq.load_json(jobstr)
+      logger.warn "here I am in retry #{msg}"
       if msg["retry"]
         attempt_retry(nil, msg, queue, e)
       else
